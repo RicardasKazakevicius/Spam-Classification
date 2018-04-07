@@ -27,13 +27,16 @@ def extract_features_and_labels(data_directory, dictionary, mails_count, standar
 	                      wordID = i
 	                      features[docID, wordID] = all_words.count(word)
 	            
+	            # If file or any folder name contains word 'spam' or 'spmsg' then set label as true with value 1
 	            labels[docID] = int(mail.split('.')[-2] == 'spam') or 'spmsg' in mail or 'spam' in mail
 	            docID = docID + 1   
 
+	# Scaling features with mean zero and standard deviation one
 	if (standard_scale):
 		scaler = StandardScaler()
 		features = scaler.fit_transform(features)
 
+	# Scaling features with values between zero and one
 	elif (min_max_scale):
 		scaler = MinMaxScaler(copy=True)
 		features =  scaler.fit_transform(features)

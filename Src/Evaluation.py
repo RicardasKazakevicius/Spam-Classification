@@ -12,11 +12,13 @@ def evaluate(algorithms, features, labels, number_of_tests, standard_scale=False
 		print('Test: %d' % (t+1))
 		train_features, test_features, train_labels, test_labels = train_test_split(features, labels, test_size=0.2, shuffle=True)
 
+		# Scaling features with mean zero and standard deviation one
 		if (standard_scale):
 			scaler = StandardScaler()
 			train_features = scaler.fit_transform(train_features)
 			test_features = scaler.fit_transform(test_features)
 
+		# Scaling features with values between zero and one
 		elif (min_max_scale):
 			scaler = MinMaxScaler(copy=False)
 			train_features = scaler.fit_transform(train_features)

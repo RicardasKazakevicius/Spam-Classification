@@ -9,15 +9,15 @@ if __name__ == '__main__':
 
 	start = time()
 	
-	results_dir = 'C:/Users/Ricardas/Desktop/Classification/Results/'
-	
-	# data_dir = '../Enron-small'
+	results_dir = '../Results/'
 	
 	# data_dir = '../All_Data'
 	# data_dir = '../Enron'
-	data_dir = '../Spam-Assasin'
+	# data_dir = '../Spam-Assasin'
 	# data_dir = '../Ling-Spam'
 	# data_dir = '../PU1'
+	# data_dir = '../Ling-Assasin-Enron'
+	data_dir = '../Enron-small'
 
 	number_of_tests = 100
 	most_common_words = 500
@@ -30,12 +30,12 @@ if __name__ == '__main__':
 	features =  np.load(data_dir[3:] + '_' + str(most_common_words) + '_features.npy')
 	labels = np.load(data_dir[3:] + '_' + str(most_common_words) + '_labels.npy')
 
-	# algorithms = get_algorithms()
-	algorithms = get_tuned_algorithms(features, labels, n_jobs=-2, verbose=1, cv=5)
+	algorithms = get_algorithms()
+	# algorithms = get_tuned_algorithms(features, labels, n_jobs=-2, verbose=1, cv=5)
 
 	algorithms = evaluate(algorithms, features, labels, number_of_tests, False, False)
 
-	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
-	results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_Tuned/'
+	results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
+	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_Tuned/'
 	save_info(algorithms, features, labels, results_dir, time()-start)
 	save_plots(algorithms, results_dir, number_of_tests)

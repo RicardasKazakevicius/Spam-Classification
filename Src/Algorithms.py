@@ -165,7 +165,7 @@ def tuned_MLP(features, labels, n_jobs, verbose, cv):
 
 
 def tuned_LinearSVC(features, labels, n_jobs, verbose, cv):
-
+	# Galima prideti parametru nes labai greit viska suskaiciuoja
 	param_grid_1 = {
 		'penalty': ['l2'],
 		'loss': ['squared_hinge'], 
