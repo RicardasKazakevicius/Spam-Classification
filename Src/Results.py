@@ -16,51 +16,45 @@ def save_info(algorithms, features, labels, directory, time):
 	file.write('Spam: %d\n' % sum(labels==1))
 
 	file.write('\n')
-	for i in range(len(algorithms)):
-		file.write(str(algorithms[i]['Name']) + '\n') 
-		file.write(str(algorithms[i]['Accuracy']) + '\n')
-		file.write('{:.2f}'.format(np.average(algorithms[i]['Accuracy'])) + '\n')
-		file.write('{:.2f}'.format(np.std(algorithms[i]['Accuracy'])) + '\n')
-		file.write(str(algorithms[i]['Standings']) + '\n')
-
-	if (len(algorithms[0]) > 4):
-		file.write('\n')	
-		for i in range(len(algorithms)):
-			file.write(str(algorithms[i]['Name']) + '\n') 
-			file.write('Number of parameters combination: %d\n' % np.prod(algorithms[i]['Params_info']))
+	for algo in algorithms.get():
+		file.write('%s\n' % algo.get_name()) 
+		file.write('%s\n' % algo.get_accurasies())
+		file.write('{:.2f}\n'.format(np.average(algo.get_accurasies())))
+		file.write('{:.2f}\n'.format(np.std(algo.get_accurasies())))
+		file.write('%s\n' % algo.get_standings())
 
 	file.write('\n')
-	for i in range(len(algorithms)):
-		file.write('%s\n' % algorithms[i]['Algo'].get_params)
-
+	for algo in algorithms.get():
+		file.write('%s\n' % algo.get().get_params)
 	file.close()
 
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 	file = open(directory + 'accurasies.txt', 'w')
-	for i in range(len(algorithms)):
-		file.write('{:.2f}'.format(np.average(algorithms[i]['Accuracy'])) + '\n')
+	for i in algorithms.get():
+		file.write('{:.2f}\n'.format(np.average(algo.get_accurasies())))
 	file.close()
 
 	if not os.path.exists(directory):
 		os.makedirs(directory)
 	file = open(directory + 'stds.txt', 'w')
-	for i in range(len(algorithms)):
-		file.write('{:.2f}'.format(np.std(algorithms[i]['Accuracy'])) + '\n')
+	for algo in algorithms.get():
+		file.write('{:.2f}\n'.format(np.std(algo.get_accurasies())))
 	file.close()
+
 
 def save_plots(algorithms, directory, number_of_tests):
 
-	for i in range(len(algorithms)):
-
-		standing = dict(Counter(algorithms[i]['Standings']))
+	for algo in algorithms.get():
+		standing = dict(Counter(algo.get_standings()))
+		
 		empty = {}
-		for j in range(1,len(algorithms)+1):
+		for j in range(1,len(algorithms.get())+1):
 			empty.update({j: 0})
 
 		std = {k: standing.get(k, 0) + empty.get(k, 0) for k in set(standing) | set(empty)}
 
-		plt.title(algorithms[i]['Name'], fontsize=17)
+		plt.title(algo.get_name(), fontsize=17)
 		plt.xlabel('Vieta', fontsize=17)
 		plt.ylabel('Kartai', fontsize=17)
 		rectanges = plt.bar(range(len(std)), list(std.values()), align='center')
@@ -71,9 +65,5 @@ def save_plots(algorithms, directory, number_of_tests):
 			if(rect.get_height() > 0):
 				plt.text(rect.get_x() + rect.get_width()/2, rect.get_height(), 
 								 rect.get_height(), ha='center', va='bottom')
-		plt.savefig(directory + str(i))
+		plt.savefig(directory + algo.get_name())
 		plt.close()
-
-
-
-	

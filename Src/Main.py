@@ -4,7 +4,7 @@ from Dictionary import *
 from Features import *
 from Results import *
 from Evaluation import *
-
+from sklearn.neural_network import MLPClassifier
 if __name__ == '__main__':
 
 	start = time()
@@ -19,7 +19,7 @@ if __name__ == '__main__':
 	# data_dir = '../Ling-Assasin-Enron'
 	# data_dir = '../Enron-small'
 
-	number_of_tests = 25
+	number_of_tests = 1
 	most_common_words = 500
 
 	# dictionary, mails_count = make_dictonary(data_dir, most_common_words, rm_stop_words=True, stemming=True)
@@ -31,7 +31,7 @@ if __name__ == '__main__':
 	labels = np.load(data_dir[3:] + '_' + str(most_common_words) + '_labels.npy')
 
 	# algorithms = get_algorithms()
-	algorithms = get_tuned_algorithms(features, labels, n_jobs=-2, verbose=1, cv=5)
+	algorithms = get_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
 
 	algorithms = evaluate(algorithms, features, labels, number_of_tests, False, False)
 
