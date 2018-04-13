@@ -31,7 +31,8 @@ if __name__ == '__main__':
 	labels = np.load(data_dir[3:] + '_' + str(most_common_words) + '_labels.npy')
 
 	# algorithms = get_algorithms()
-	algorithms = get_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
+	# algorithms = get_random_search_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
+	algorithms = get_grid_search_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
 
 	algorithms = evaluate(algorithms, features, labels, number_of_tests, False, False)
 
