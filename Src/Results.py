@@ -15,44 +15,43 @@ def save_info(algorithms, features, labels, directory, time):
 	file.write('Ham: %d\n' % sum(labels==0))
 	file.write('Spam: %d\n' % sum(labels==1))
 
-	file.write('\n')
+	file.write('\nAverage accurasy:\n')
 	for algo in algorithms.get():
-		file.write('%s\n' % algo.get_name()) 
-		file.write('%s\n' % algo.get_accurasies())
+		file.write('{:25s}'.format(algo.get_name()))
 		file.write('{:.2f}\n'.format(np.average(algo.get_accurasies())))
+
+	file.write('\nStandard deviation:\n')
+	for algo in algorithms.get():
+		file.write('{:25s}'.format(algo.get_name()))
 		file.write('{:.2f}\n'.format(np.std(algo.get_accurasies())))
+
+	file.write('\nAccurasies:\n')
+	for algo in algorithms.get():
+		file.write('{:25s}'.format(algo.get_name())) 
+		file.write('%s\n' % algo.get_accurasies())
+
+	file.write('\nStandings:\n')
+	for algo in algorithms.get():
+		file.write('{:25s}'.format(algo.get_name()))
 		file.write('%s\n' % algo.get_standings())
 
-	file.write('\n')
+	file.write('\nParameters:\n')
 	for algo in algorithms.get():
+		file.write('%s:\n' % algo.get_name())
 		file.write('%s\n' % algo.get().get_params)
-	file.close()
-
-	if not os.path.exists(directory):
-		os.makedirs(directory)
-	file = open(directory + 'accurasies.txt', 'w')
-	for i in algorithms.get():
-		file.write('{:.2f}\n'.format(np.average(algo.get_accurasies())))
-	file.close()
-
-	if not os.path.exists(directory):
-		os.makedirs(directory)
-	file = open(directory + 'stds.txt', 'w')
-	for algo in algorithms.get():
-		file.write('{:.2f}\n'.format(np.std(algo.get_accurasies())))
 	file.close()
 
 
 def save_plots(algorithms, directory, number_of_tests):
 
 	for algo in algorithms.get():
-		standing = dict(Counter(algo.get_standings()))
-		
+		standings = dict(Counter(algo.get_standings()))
+
 		empty = {}
 		for j in range(1,len(algorithms.get())+1):
 			empty.update({j: 0})
 
-		std = {k: standing.get(k, 0) + empty.get(k, 0) for k in set(standing) | set(empty)}
+		std = {k: standings.get(k, 0) + empty.get(k, 0) for k in set(standings) | set(empty)}
 
 		plt.title(algo.get_name(), fontsize=17)
 		plt.xlabel('Vieta', fontsize=17)

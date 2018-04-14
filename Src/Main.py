@@ -9,7 +9,7 @@ if __name__ == '__main__':
 
 	start = time()
 	
-	results_dir = '../Results/'
+	results_dir = '../ResultsMinMax/'
 	
 	# data_dir = '../All_Data'
 	# data_dir = '../Enron'
@@ -19,11 +19,11 @@ if __name__ == '__main__':
 	# data_dir = '../Ling-Assasin-Enron'
 	# data_dir = '../Enron-small'
 
-	number_of_tests = 1
+	number_of_tests = 100
 	most_common_words = 500
 
 	# dictionary, mails_count = make_dictonary(data_dir, most_common_words, rm_stop_words=True, stemming=True)
-	# features, labels = extract_features_and_labels(data_dir, dictionary, mails_count, False, False)
+	# features, labels = extract_features_and_labels(data_dir, dictionary, mails_count)
 	# np.save(data_dir[3:] + '_' + str(most_common_words) + '_features', features)
 	# np.save(data_dir[3:] + '_' + str(most_common_words) + '_labels' , labels)
 	
@@ -31,13 +31,13 @@ if __name__ == '__main__':
 	labels = np.load(data_dir[3:] + '_' + str(most_common_words) + '_labels.npy')
 
 	# algorithms = get_algorithms()
-	# algorithms = get_random_search_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
-	algorithms = get_grid_search_tuned_algorithms(features, labels, n_jobs=1, verbose=1, n_iter=1, cv=5)
+	# algorithms = get_random_search_tuned_algorithms(features, labels, n_jobs=1, n_iter=96, cv=5, verbose=1)
+	algorithms = get_grid_search_tuned_algorithms(features, labels, n_jobs=-2, cv=5, verbose=1)
 
-	algorithms = evaluate(algorithms, features, labels, number_of_tests, False, False)
+	algorithms = evaluate(algorithms, features, labels, number_of_tests, standard_scale=False, min_max_scale=True)
 
-	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
-	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_Tuned/'
-	results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_Temp/'
+	results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
+	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_GridSearch/'
+	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_RandomSearch/'
 	save_info(algorithms, features, labels, results_dir, time()-start)
 	save_plots(algorithms, results_dir, number_of_tests)
