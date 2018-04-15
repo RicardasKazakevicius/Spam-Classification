@@ -19,6 +19,18 @@ if __name__ == '__main__':
 	# data_dir = '../Ling-Assasin-Enron'
 	# data_dir = '../Enron-small'
 
+	# number of k_fold cross-validation
+	n_splits = 4
+
+	# number of iterations in random parameters search
+	n_iter = 96
+
+	# Scale features with mean zero and standard deviation one
+	standard_scale = False
+
+	# Scale features with values between zero and one
+	min_max_scale = True
+	
 	number_of_tests = 100
 	most_common_words = 500
 
@@ -31,13 +43,14 @@ if __name__ == '__main__':
 	labels = np.load(data_dir[3:] + '_' + str(most_common_words) + '_labels.npy')
 
 	# algorithms = get_algorithms()
-	# algorithms = get_random_search_tuned_algorithms(features, labels, n_jobs=1, n_iter=96, cv=5, verbose=1)
-	algorithms = get_grid_search_tuned_algorithms(features, labels, n_jobs=-2, cv=5, verbose=1)
+	# algorithms = get_grid_search_tuned_algorithms(features, labels, n_splits, standard_scale, min_max_scale)
+	algorithms = get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, standard_scale, min_max_scale)
+	
 
-	algorithms = evaluate(algorithms, features, labels, number_of_tests, standard_scale=False, min_max_scale=True)
+	# algorithms = evaluate_algorithms(algorithms, features, labels, number_of_tests/n_splits, n_splits, standard_scale, min_max_scale)
 
-	results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
+	# # results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '/'
 	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_GridSearch/'
-	# results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_RandomSearch/'
-	save_info(algorithms, features, labels, results_dir, time()-start)
-	save_plots(algorithms, results_dir, number_of_tests)
+	# # results_dir = results_dir + data_dir[3:] + '_' + str(most_common_words) + '_RandomSearch/'
+	# save_info(algorithms, features, labels, results_dir, time()-start)
+	# save_plots(algorithms, results_dir, number_of_tests)
