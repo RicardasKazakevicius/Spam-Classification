@@ -11,7 +11,7 @@ import sys
 reload(sys)  
 sys.setdefaultencoding('utf8')
 
-def calculate_duration(number_of_tests, n_splits, data_dir, words_begin, words_end, words_step, standard_scale, min_max_scale, rm_stop_words, stemming, tokenization, results_dir):
+def vector_duration_accurasy_ratio(number_of_tests, n_splits, data_dir, words_begin, words_end, words_step, standard_scale, min_max_scale, rm_stop_words, stemming, tokenization, results_dir):
 
 	durations = []
 	accurasies = []

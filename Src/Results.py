@@ -3,7 +3,7 @@ from collections import Counter
 import numpy as np
 import os
 
-def save_info(algorithms, features, labels, directory, time):
+def save_test_results(algorithms, features, labels, directory, time):
 	
 	if not os.path.exists(directory):
 		os.makedirs(directory)
@@ -42,7 +42,7 @@ def save_info(algorithms, features, labels, directory, time):
 	file.close()
 
 
-def save_plots(algorithms, directory, number_of_tests):
+def create_plots(algorithms, directory, number_of_tests):
 
 	for algo in algorithms.get():
 		standings = dict(Counter(algo.get_standings()))

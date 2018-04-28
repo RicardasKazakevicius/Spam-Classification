@@ -1,10 +1,9 @@
-from sklearn.naive_bayes import MultinomialNB, BernoulliNB, GaussianNB
-from sklearn.svm import LinearSVC, SVC, NuSVC
-from sklearn.tree import DecisionTreeClassifier
+from sklearn.naive_bayes import MultinomialNB
+from sklearn.svm import SVC
 from sklearn.neural_network import MLPClassifier
-from sklearn.linear_model import LogisticRegression, SGDClassifier
+from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
-from sklearn.ensemble import AdaBoostClassifier, RandomForestClassifier, GradientBoostingClassifier
+from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 from GridSearch import *
 from RandomSearch import *
