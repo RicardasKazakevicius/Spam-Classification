@@ -12,7 +12,7 @@ def get_stop_words():
 	return stop_words
 
 
-def make_dictonary(data_directory, most_common_words, rm_stop_words=False, stemming=False):
+def make_dictonary(data_directory, most_common_words, rm_stop_words, stemming, tokenization):
 
 	all_words = []
 	mails_count = 0
@@ -31,6 +31,7 @@ def make_dictonary(data_directory, most_common_words, rm_stop_words=False, stemm
 
 	all_words = [w.lower() for w in all_words]
 	
+	# Making semantically similar words same
 	if (stemming):
 		for i in range(len(all_words)):
 			all_words[i] = stem(all_words[i])
@@ -38,15 +39,19 @@ def make_dictonary(data_directory, most_common_words, rm_stop_words=False, stemm
 	dictionary = Counter(all_words)
 	
 	# Removing non string type and with length one items
-	for item in dictionary.keys():
-		if item.isalpha() == False or len(item) == 1: 
-			del dictionary[item]
+	if (tokenization):
+		for item in dictionary.keys():
+			if item.isalpha() == False or len(item) == 1: 
+				del dictionary[item]
 
+	# Removing stop words
 	if (rm_stop_words):
 		stop_words = get_stop_words()
-		
 		for item in dictionary.keys():
 			if item in stop_words: 
 				del dictionary[item]
-
-	return dictionary.most_common(most_common_words), mails_count
+	
+	if (most_common_words):
+		dictionary = dictionary.most_common(most_common_words)
+	
+	return dictionary, mails_count

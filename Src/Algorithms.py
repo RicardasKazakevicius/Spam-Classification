@@ -15,7 +15,6 @@ class Algorithms:
 
 	def append(self, algorithm):
 		self.algorithms.append(algorithm)
-		print(algorithm.get_name())
 
 	# Training all algorithms
 	def fit(self, train_features, train_labels):
@@ -67,47 +66,33 @@ def get_algorithms():
 	
 	algorithms = Algorithms()
 	algorithms.append(Algorithm(MLPClassifier()))
-	algorithms.append(Algorithm(LinearSVC()))
 	algorithms.append(Algorithm(SVC()))
-	algorithms.append(Algorithm(DecisionTreeClassifier()))
 	algorithms.append(Algorithm(KNeighborsClassifier()))
 	algorithms.append(Algorithm(LogisticRegression()))
 	algorithms.append(Algorithm(MultinomialNB()))
-	algorithms.append(Algorithm(BernoulliNB()))
-	algorithms.append(Algorithm(AdaBoostClassifier()))
 	algorithms.append(Algorithm(RandomForestClassifier()))
-	return algorithms
-
-
-def get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, standard_scale, min_max_scale):
-
-	algorithms = Algorithms()
-	# algorithms.append(Algorithm(MLP_random_search(MLPClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(LinearSVC_random_search(LinearSVC(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(SVC_random_search(SVC(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(DecisionTree_random_search(DecisionTreeClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(KNeighbours_random_search(KNeighborsClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(LogisticRegression_random_search(LogisticRegression(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(MultinomialNB_random_search(MultinomialNB(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(BernoulliNB_random_search(BernoulliNB(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(AdaBoost_random_search(AdaBoostClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(RandomForest_random_search(RandomForestClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
 	return algorithms
 
 
 def get_grid_search_tuned_algorithms(features, labels, n_splits, standard_scale, min_max_scale):
 
 	algorithms = Algorithms()
-	# algorithms.append(Algorithm(MLP_grid_search(MLPClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(LinearSVC_grid_search(LinearSVC(), features, labels, n_splits, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(MLP_grid_search(MLPClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(SVC_grid_search(SVC(), features, labels, n_splits, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(DecisionTree_grid_search(DecisionTreeClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(KNeighbours_grid_search(KNeighborsClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(LogisticRegression_grid_search(LogisticRegression(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(MultinomialNB_grid_search(MultinomialNB(), features, labels, n_splits, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(BernoulliNB_grid_search(BernoulliNB(), features, labels, n_splits, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(AdaBoost_grid_search(AdaBoostClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(RandomForest_grid_search(RandomForestClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	return algorithms
 
 
+def get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, standard_scale, min_max_scale):
+
+	algorithms = Algorithms()
+	algorithms.append(Algorithm(MLP_random_search(MLPClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(SVC_random_search(SVC(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(KNeighbours_random_search(KNeighborsClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(LogisticRegression_random_search(LogisticRegression(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(MultinomialNB_random_search(MultinomialNB(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(RandomForest_random_search(RandomForestClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	return algorithms
