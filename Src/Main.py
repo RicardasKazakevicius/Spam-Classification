@@ -35,7 +35,7 @@ if __name__ == '__main__':
 	
 	number_of_tests = 4
 
-	# number of most common words
+	# Number of most common words
 	vector_size = 500
 
 	# dictionary, mails_count = make_dictonary(data_dir, vector_size, rm_stop_words, stemming, tokenization)
