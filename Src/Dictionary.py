@@ -1,6 +1,8 @@
 from collections import Counter
 from stemming.porter2 import stem
 import os
+import nltk
+from nltk.corpus import stopwords
 
 def get_stop_words():
 	
@@ -46,9 +48,8 @@ def make_dictonary(data_directory, vector_size, rm_stop_words, stemming, tokeniz
 
 	# Removing stop words
 	if (rm_stop_words):
-		stop_words = get_stop_words()
 		for item in dictionary.keys():
-			if item in stop_words: 
+			if item in stopwords.words('english'): 
 				del dictionary[item]
 	
 	# If vector size is specified then reduce dictionary size to vector_size

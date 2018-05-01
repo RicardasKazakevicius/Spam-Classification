@@ -4,8 +4,9 @@ from Dictionary import *
 from Features import *
 from Results import *
 from Evaluation import *
-from Test import *
+from VectorSizeTest import *
 from sklearn.neural_network import MLPClassifier
+
 if __name__ == '__main__':
 	
 	start = time()
@@ -36,11 +37,11 @@ if __name__ == '__main__':
 	number_of_tests = 4
 
 	# Number of most common words
-	vector_size = 500
+	vector_size = 100
 
-	# dictionary, mails_count = make_dictonary(data_dir, vector_size, rm_stop_words, stemming, tokenization)
-	# features, labels = extract_features_and_labels(data_dir, dictionary, mails_count)
-
+	dictionary, mails_count = make_dictonary(data_dir, vector_size, rm_stop_words, stemming, tokenization)
+	features, labels = extract_features_and_labels(data_dir, dictionary, mails_count)
+	
 	# # np.save(data_dir[3:] + '_' + str(vector_size) + '_features', features)
 	# # np.save(data_dir[3:] + '_' + str(vector_size) + '_labels' , labels)
 	
@@ -62,8 +63,11 @@ if __name__ == '__main__':
 	# create_plots(algorithms, results_dir, number_of_tests)
 
 
-	words_begin = 100
-	words_end = 1100
-	words_step = 100
-	results_dir = results_dir + data_dir[3:] + '_DurationAccurasyRatio'
-	vector_duration_accurasy_ratio(number_of_tests, n_splits, data_dir, words_begin, words_end, words_step, standard_scale, min_max_scale, rm_stop_words, stemming, tokenization, results_dir)
+	# Test for finding opimal vector size
+	# words_begin = 100
+	# words_end = 1100
+	# words_step = 100
+	# results_dir = results_dir + data_dir[3:] + '_DurationAccurasyRatio'
+	# vector_duration_accurasy_ratio(number_of_tests, n_splits, data_dir, words_begin, words_end, words_step, standard_scale, min_max_scale, rm_stop_words, stemming, tokenization, results_dir)
+
+
