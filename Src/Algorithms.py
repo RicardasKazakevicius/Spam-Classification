@@ -1,5 +1,5 @@
 from sklearn.naive_bayes import MultinomialNB
-from sklearn.svm import SVC
+from sklearn.svm import SVC, LinearSVC
 from sklearn.neural_network import MLPClassifier
 from sklearn.linear_model import LogisticRegression
 from sklearn.neighbors import KNeighborsClassifier
@@ -65,7 +65,7 @@ def get_algorithms():
 	
 	algorithms = Algorithms()
 	algorithms.append(Algorithm(MLPClassifier()))
-	algorithms.append(Algorithm(SVC()))
+	algorithms.append(Algorithm(LinearSVC()))
 	algorithms.append(Algorithm(KNeighborsClassifier()))
 	algorithms.append(Algorithm(LogisticRegression()))
 	algorithms.append(Algorithm(MultinomialNB()))
@@ -77,7 +77,7 @@ def get_grid_search_tuned_algorithms(features, labels, n_splits, standard_scale,
 
 	algorithms = Algorithms()
 	algorithms.append(Algorithm(MLP_grid_search(MLPClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(SVC_grid_search(SVC(), features, labels, n_splits, standard_scale, min_max_scale)))
+	algorithms.append(Algorithm(LinearSVC_grid_search(LinearSVC(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(KNeighbours_grid_search(KNeighborsClassifier(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(LogisticRegression_grid_search(LogisticRegression(), features, labels, n_splits, standard_scale, min_max_scale)))
 	algorithms.append(Algorithm(MultinomialNB_grid_search(MultinomialNB(), features, labels, n_splits, standard_scale, min_max_scale)))
@@ -89,9 +89,9 @@ def get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, stand
 
 	algorithms = Algorithms()
 	algorithms.append(Algorithm(MLP_random_search(MLPClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(SVC_random_search(SVC(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(KNeighbours_random_search(KNeighborsClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(LogisticRegression_random_search(LogisticRegression(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(MultinomialNB_random_search(MultinomialNB(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
-	algorithms.append(Algorithm(RandomForest_random_search(RandomForestClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	# algorithms.append(Algorithm(LinearSVC_random_search(LinearSVC(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	# algorithms.append(Algorithm(KNeighbours_random_search(KNeighborsClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	# algorithms.append(Algorithm(LogisticRegression_random_search(LogisticRegression(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	# algorithms.append(Algorithm(MultinomialNB_random_search(MultinomialNB(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
+	# algorithms.append(Algorithm(RandomForest_random_search(RandomForestClassifier(), features, labels, n_splits, n_iter, standard_scale, min_max_scale)))
 	return algorithms

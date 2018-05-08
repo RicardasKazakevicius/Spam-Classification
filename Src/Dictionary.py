@@ -4,16 +4,6 @@ import os
 import nltk
 from nltk.corpus import stopwords
 
-def get_stop_words():
-	
-	with open('stopWords.txt', 'r') as file:  
-		stop_words = file.readlines()
-		for i in range(len(stop_words)):
-			stop_words[i] = stop_words[i].replace('\n', '')
-
-	return stop_words
-
-
 def make_dictonary(data_directory, vector_size, rm_stop_words, stemming, tokenization):
 
 	all_words = []

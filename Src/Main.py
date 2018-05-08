@@ -12,10 +12,10 @@ if __name__ == '__main__':
 	start = time()
 	
 	results_dir = '../Results/'
-	
+
 	# data_dir = '../Spam-Assasin'
-	data_dir = '../Ling-Spam'
-	# data_dir = '../PU1'
+	# data_dir = '../Ling-Spam'
+	data_dir = '../PU1'
 	# data_dir = '../Enron-small'
 
 	# number of k_fold cross-validation
@@ -34,33 +34,33 @@ if __name__ == '__main__':
 	stemming = True
 	tokenization = True
 	
-	number_of_tests = 4
+	number_of_tests = 100
 
 	# Number of most common words
-	vector_size = 100
+	vector_size = 500
 
-	dictionary, mails_count = make_dictonary(data_dir, vector_size, rm_stop_words, stemming, tokenization)
-	features, labels = extract_features_and_labels(data_dir, dictionary, mails_count)
+	# dictionary, mails_count = make_dictonary(data_dir, vector_size, rm_stop_words, stemming, tokenization)
+	# features, labels = extract_features_and_labels(data_dir, dictionary, mails_count)
 	
-	# # np.save(data_dir[3:] + '_' + str(vector_size) + '_features', features)
-	# # np.save(data_dir[3:] + '_' + str(vector_size) + '_labels' , labels)
+	# np.save(data_dir[3:] + '_' + str(vector_size) + '_MinMax_features', features)
+	# np.save(data_dir[3:] + '_' + str(vector_size) + '_MinMax_labels' , labels)
 	
-	# # features =  np.load(data_dir[3:] + '_' + str(vector_size) + '_features.npy')
-	# # labels = np.load(data_dir[3:] + '_' + str(vector_size) + '_labels.npy')
+	features =  np.load(data_dir[3:] + '_' + str(vector_size) + '_MinMax_features.npy')
+	labels = np.load(data_dir[3:] + '_' + str(vector_size) + '_MinMax_labels.npy')
 
 	# algorithms = get_algorithms()
-	# results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + 'temp1/'
+	# results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + '/'
 
-	# # algorithms = get_grid_search_tuned_algorithms(features, labels, n_splits, standard_scale, min_max_scale)
-	# # results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + '_GridSearch/'
+	# algorithms = get_grid_search_tuned_algorithms(features, labels, n_splits, standard_scale, min_max_scale)
+	# results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + '_GridSearch/'
 
-	# # algorithms = get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, standard_scale, min_max_scale)
-	# # results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + '_RandomSearch/'
+	algorithms = get_random_search_tuned_algorithms(features, labels, n_splits, n_iter, standard_scale, min_max_scale)
+	results_dir = results_dir + data_dir[3:] + '_' + str(vector_size) + '_RandomSearchNNOnly/'
 
-	# algorithms = evaluate_algorithms(algorithms, features, labels, number_of_tests/n_splits, n_splits, standard_scale, min_max_scale)
+	algorithms = evaluate_algorithms(algorithms, features, labels, number_of_tests, n_splits, standard_scale, min_max_scale)
 
-	# save_test_results(algorithms, features, labels, results_dir, time()-start)
-	# create_plots(algorithms, results_dir, number_of_tests)
+	save_test_results(algorithms, features, labels, results_dir, time()-start)
+	create_plots(algorithms, results_dir, number_of_tests)
 
 
 	# Test for finding opimal vector size

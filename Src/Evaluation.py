@@ -6,13 +6,13 @@ import random
 from time import time
 import operator
 
-def evaluate_algorithms(algorithms, features, labels, n_repeats, n_splits, standard_scale, min_max_scale):
+def evaluate_algorithms(algorithms, features, labels, number_of_tests, n_splits, standard_scale, min_max_scale):
 	
 	test = 1
-	rkf = RepeatedKFold(n_repeats=n_repeats, n_splits=n_splits)
+	rkf = RepeatedKFold(n_repeats=number_of_tests/n_splits, n_splits=n_splits)
 
 	for train_index, test_index in rkf.split(features):
-		# print test, 
+		print test, 
 		train_features, test_features = features[train_index], features[test_index]
 		train_labels, test_labels = labels[train_index], labels[test_index]
 
@@ -34,14 +34,16 @@ def get_algorithm_with_best_grid_params(algorithm, param_grids, features, labels
 
 	algo_start = time()
 	results = []
-	
+	i = 1
 	combinations, params_names = get_all_combinations(param_grids)
 	
-	for combination in combinations:	
+	for combination in combinations:
 		params = dict(zip(params_names, combination))
 		algorithm.set_params(**params)		
 		accurasy = evaluate_algorithm(algorithm, features, labels, n_splits, standard_scale, min_max_scale)
 		results.append((params, accurasy))
+		print(i, combination, accurasy)
+		i += 1
 	print(str(algorithm).split('(')[0], (time()-algo_start)/60)
 
 	best_result = sorted(results, key=operator.itemgetter(1))[-1]
@@ -56,7 +58,7 @@ def get_algorithm_with_best_random_params(algorithm, param_grids, features, labe
 
 	algo_start = time()
 	results = []
-
+	i = 1
 	combinations, params_names = get_all_combinations(param_grids)	
 	random_combinations = get_random_combinations(combinations, n_iter)
 
@@ -65,6 +67,8 @@ def get_algorithm_with_best_random_params(algorithm, param_grids, features, labe
 		algorithm.set_params(**params)		
 		accurasy = evaluate_algorithm(algorithm, features, labels, n_splits, standard_scale, min_max_scale)
 		results.append((params, accurasy))
+		print(i, combination, accurasy)
+		i += 1
 	print(str(algorithm).split('(')[0], (time()-algo_start)/60)
 
 	best_result = sorted(results, key=operator.itemgetter(1))[-1]
@@ -118,13 +122,15 @@ def get_random_combinations(combinations, amount):
 
 def scale_standard(train_features, test_features):
 	scaler = StandardScaler()
-	train_features = scaler.fit_transform(train_features)
-	test_features = scaler.fit_transform(test_features)
+	scaler.fit(train_features)
+	train_features = scaler.transform(train_features)
+	test_features = scaler.transform(test_features)
 	return train_features, test_features
 
 
 def scale_min_max(train_features, test_features):
-	scaler = MinMaxScaler(copy=False)
-	train_features = scaler.fit_transform(train_features)
-	test_features = scaler.fit_transform(test_features)
+	scaler = MinMaxScaler()
+	scaler.fit(train_features)
+	train_features = scaler.transform(train_features)
+	test_features = scaler.transform(test_features)
 	return train_features, test_features
