@@ -2,12 +2,9 @@ from Evaluation import get_algorithm_with_best_random_params
 
 def MLP_random_search(algorithm, features, labels, n_splits, n_iter, standard_scale, min_max_scale):
 
-	# random_hidden_layer_sizes = [(x*100,) for x in range(1, 22, 2)] + \
-															# [(x*100,x*100) for x in range(1, 22, 2)] + \
-															# [(x*100,x*100,x*100) for x in range(1, 22, 2)]
-	random_hidden_layer_sizes = [(x*10,) for x in range(1, 10, 1)] + \
-															[(x*10,x*10) for x in range(1, 10, 1)] + \
-															[(x*10,x*10,x*10) for x in range(1, 10, 1)]
+	random_hidden_layer_sizes = [(x*100,) for x in range(1, 22, 2)] + \
+															[(x*100,x*100) for x in range(1, 22, 2)] + \
+															[(x*100,x*100,x*100) for x in range(1, 22, 2)]
 	random_learning_rate_init = [10**(-x) for x in range(1, 6)]
 	random_max_iter = [x*100 for x in range(1, 22, 3)]
 	
@@ -59,7 +56,7 @@ def LinearSVC_random_search(algorithm, features, labels, n_splits, n_iter, stand
 
 def KNeighbours_random_search(algorithm, features, labels, n_splits, n_iter, standard_scale, min_max_scale):
 
-	random_n_neighbors = [x for x in range(3, 30)]
+	random_n_neighbors = [x for x in range(3, 25)]
 
 	param_grids = []
 	param_grids.append({
